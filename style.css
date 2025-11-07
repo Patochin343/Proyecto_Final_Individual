@@ -155,3 +155,59 @@ body {
     font-style: italic;
     color: #777;
 }
+
+/* === Estilos del Juego (Piedra, Papel, Tijera) === */
+
+/* Contenedor de botones del juego */
+.game-options {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Estilo de cada botón del juego */
+.game-btn {
+    font-size: 3rem; /* Tamaño del emoji */
+    padding: 1rem;
+    border-radius: 50%; /* Círculo */
+    border: 2px solid #007bff;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.game-btn:hover {
+    background-color: #f0f8ff; /* Azul claro al pasar el mouse */
+    transform: scale(1.1);
+}
+
+/* Área de resultados */
+.game-result {
+    margin-top: 1.5rem;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.game-result p {
+    margin: 0.5rem 0;
+    font-size: 1.1em;
+}
+
+.game-result h2 {
+    margin-top: 1rem;
+    color: #0056b3;
+}
+
+/* Marcador */
+.game-score {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+}

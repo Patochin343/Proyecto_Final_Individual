@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Simulación de inicio de sesión:
             if (username.trim() !== "" && password.trim() !== "") {
-                // Éxito: Redirige al lobby
                 window.location.href = "lobby.html";
-            } else {
-                // Error: Muestra un mensaje
+            } 
+            else 
+            {
                 errorMessage.textContent = "Por favor, ingresa usuario y contraseña.";
             }
         });
