@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe Avanzado</title>
+    <link rel="stylesheet" href="/Diseños/Juego2.css">
+</head>
+<body>
+
+    <h1>Tres en Raya</h1>
+    
+    <div class="setup-screen" id="setupScreen">
+        <div class="option-group">
+            <label>Modo de Juego:</label>
+            <select id="gameMode" onchange="toggleDifficultyVisibility()">
+                <option value="pvc">Jugador vs CPU</option>
+                <option value="pvp">Jugador vs Jugador</option>
+            </select>
+        </div>
+
+        <div class="option-group" id="difficultyGroup">
+            <label>Dificultad CPU:</label>
+            <select id="difficulty">
+                <option value="easy">Fácil (Aleatorio)</option>
+                <option value="normal" selected>Normal (Mezclado)</option>
+                <option value="hard">Difícil (Invencible)</option>
+            </select>
+        </div>
+
+        <div class="option-group" id="turnGroup">
+            <label>Tú juegas como:</label>
+            <select id="playerTurn">
+                <option value="X">X (Inicias primero)</option>
+                <option value="O">O (Inicias segundo)</option>
+            </select>
+        </div>
+
+        <button class="primary" onclick="startGame()">Comenzar Juego</button>
+    </div>
+
+    <div class="game-screen" id="gameScreen">
+        <div class="status" id="statusText">Tu turno</div>
+        <div class="board" id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <div class="controls">
+            <button onclick="resetBoard()">Reiniciar Partida</button>
+            <button><a href="/Lobby.html" class="btn-back">Volver al Menú</a></button>
+        </div>
+    </div>
+
+    <script src="/Scripts/Juego2.js"></script>
+</body>
+</html>

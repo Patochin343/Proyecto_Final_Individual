@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Pong</title>
+    <link rel="stylesheet" href="/Diseños/Juego3.css">
+</head>
+<body>
+
+    <div class="game-container" id="mainContainer">
+        <h1>NEON PONG</h1>
+        
+        <div class="scoreboard">
+            <div class="score" id="player1Score">0</div>
+            <div class="divider">-</div>
+            <div class="score" id="player2Score">0</div>
+        </div>
+
+        <div class="canvas-wrapper">
+            <canvas id="pongCanvas" width="800" height="500"></canvas>
+            
+            <div id="menuOverlay" class="overlay">
+                <div class="menu-card">
+                    <h2>CONFIGURACIÓN</h2>
+                    
+                    <div class="option-group">
+                        <label>Modo de Juego:</label>
+                        <select id="gameMode">
+                            <option value="pvc">1 Jugador (vs CPU)</option>
+                            <option value="pvp">2 Jugadores (Local)</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group" id="difficultyGroup">
+                        <label>Dificultad CPU:</label>
+                        <select id="difficulty">
+                            <option value="easy">Fácil</option>
+                            <option value="normal" selected>Normal</option>
+                            <option value="hard">Imposible</option>
+                        </select>
+                    </div>
+
+                    <button class="primary" onclick="startGame()">Jugar Ahora</button>
+                    
+                    <div class="controls-hint">
+                        <p><strong>P1 (Azul):</strong> W / S</p>
+                        <p><strong>P2 (Rosa):</strong> ↑ / ↓</p>
+                    </div>
+                    
+                    <button class="exit-btn" onclick="exitGame()">Salir del Juego</button>
+                </div>
+            </div>
+
+            <div id="pauseOverlay" class="overlay hidden">
+                <div class="menu-card">
+                    <h2 id="pauseTitle">PAUSA</h2>
+                    <button class="primary" onclick="resumeGame()">Continuar</button>
+                    <button class="exit-btn" onclick="resetGame()">Volver al Menú</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Scripts/Juego3.js"></script>
+</body>
+</html>

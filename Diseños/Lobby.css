@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f0f1a;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #0f0f1a, #1a1a2e);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(22, 33, 62, 0.9);
+    border-bottom: 2px solid #e94560;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: #e94560;
+    text-shadow: 0 0 10px #e94560;
+    font-weight: bold;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#welcomeMsg {
+    font-weight: bold;
+    color: #00d4ff;
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid #e94560;
+    color: #e94560;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.btn-logout:hover {
+    background: #e94560;
+    color: white;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.page-title {
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.game-card {
+    background: #16213e;
+    border-radius: 10px;
+    overflow: hidden; /* Esto asegura que la imagen no se salga de las esquinas redondeadas */
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #1f4068;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+    border-color: #00d4ff;
+}
+
+/* --- ESTILO DE LA IMAGEN --- */
+.card-image {
+    height: 160px; /* Altura fija para la zona de la imagen */
+    width: 100%;
+    overflow: hidden; /* Oculta lo que sobre si hacemos zoom */
+    background-color: #000; /* Fondo negro por si la imagen tarda en cargar */
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La magia: recorta la imagen para llenar el espacio */
+    transition: transform 0.5s ease; /* Transición suave para el efecto zoom */
+}
+
+/* Efecto Zoom al pasar el mouse por la tarjeta */
+.game-card:hover .card-image img {
+    transform: scale(1.1);
+}
+/* --------------------------- */
+
+.card-content {
+    padding: 1.5rem;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-content h3 {
+    margin-bottom: 0.5rem;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.card-content p {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 1.5rem;
+}
+
+.btn-play {
+    display: inline-block;
+    padding: 10px 0;
+    width: 100%;
+    background: linear-gradient(90deg, #00d4ff, #0056b3);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-play:hover {
+    background: linear-gradient(90deg, #0056b3, #00d4ff);
+    box-shadow: 0 0 10px #00d4ff;
+}

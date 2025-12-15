@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+    <link rel="stylesheet" href="../Diseños/Juego1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="game-container">
+        <div class="hud">
+            <div class="score-board">
+                PUNTOS: <span id="score">0</span>
+            </div>
+            <a href="/Lobby.html" class="btn-back">VOLVER AL MENU</a>
+        </div>
+
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        
+        <p class="instructions">Usa las flechas del teclado para moverte ⬆️⬇️⬅️➡️</p>
+        <button id="startBtn">INICIAR JUEGO</button>
+    </div>
+
+    <script src="../Scripts/Juego1.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+/* Reseteo básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f0f1a;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* min-height ayuda si el formulario es alto */
+    background-image: radial-gradient(circle at center, #1a1a2e 0%, #000 100%);
+}
+
+.register-container {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 450px; /* Un poco más ancho que el login */
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); /* Brillo Cian */
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    backdrop-filter: blur(10px);
+    margin: 20px; /* Margen para móviles */
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.register-header h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: #e94560; /* Rojo/Rosado neón para título */
+    font-size: 2.2rem;
+    text-shadow: 0 0 10px #e94560;
+    margin-bottom: 0.5rem;
+}
+
+.input-group {
+    margin-bottom: 1.2rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background: #16213e;
+    border: 2px solid #0f3460;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #00d4ff; /* Cian al enfocar */
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+.btn-register {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #00d4ff, #0056b3); /* Gradiente Azul/Cian */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+.btn-register:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px #00d4ff;
+}
+
+.register-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.register-footer a {
+    color: #e94560;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-footer a:hover {
+    text-decoration: underline;
+}

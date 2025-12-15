@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Nuevo Jugador</title>
+    <link rel="stylesheet" href="Diseños/Registrar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="register-container">
+        <div class="register-header">
+            <h1>NUEVO USUARIO</h1>
+            <p>Crea tu perfil de jugador</p>
+        </div>
+
+        <form id="registerForm">
+            <div class="input-group">
+                <label for="new-username">Usuario</label>
+                <input type="text" id="new-username" placeholder="Tu Gamertag" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="new-password">Contraseña</label>
+                <input type="password" id="new-password" placeholder="••••••••" required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm-password">Confirmar Contraseña</label>
+                <input type="password" id="confirm-password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-register">CREAR CUENTA</button>
+        </form>
+
+        <div class="register-footer">
+            <p>¿Ya tienes cuenta? <a href="Login.html">Inicia Sesión</a></p>
+        </div>
+    </div>
+
+    <script src="Scripts/Registrar.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+/* style.css - Versión Mejorada */
+
+:root {
+    --bg-color: #1a1a2e;     /* Azul muy oscuro de fondo */
+    --cell-bg: #16213e;      /* Azul oscuro para celdas */
+    --accent: #0f3460;       /* Azul intermedio para hover */
+    --text: #e94560;         /* Rojo rosado para títulos/botones */
+    --light: #f1f1f1;        /* Texto claro */
+    --x-color: #4facfe;      /* Celeste neón para X */
+    --o-color: #f093fb;      /* Rosa neón para O */
+    --win-color: #2ecc71;    /* Verde para ganar */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    /* Un degradado sutil para que no sea plano */
+    background-image: radial-gradient(circle at center, #232342 0%, var(--bg-color) 100%);
+    color: var(--light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+}
+
+/* --- Pantalla de Configuración (Menú) --- */
+.setup-screen {
+    background: rgba(22, 33, 62, 0.95); /* Semi-transparente */
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    text-align: center;
+    display: flex; /* Asegura que se muestre si no está oculto */
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.option-group {
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #aebcff;
+    font-size: 0.9rem;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--accent);
+    background-color: var(--bg-color);
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+select:focus {
+    border-color: var(--text);
+}
+
+button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button.primary {
+    background-color: var(--text);
+    color: white;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+    margin-top: 10px;
+}
+
+button.primary:hover {
+    background-color: #ff5e78;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+}
+
+button.primary:active {
+    transform: translateY(1px);
+}
+
+/* --- Pantalla de Juego --- */
+.game-screen {
+    display: none; /* JS cambiará esto a flex */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.status {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    min-height: 40px;
+    font-weight: 300;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+    background-color: #0f182e;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: var(--cell-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    user-select: none;
+}
+
+/* Efectos Hover en Celdas */
+.cell:hover:not(.x):not(.o) {
+    background-color: var(--accent);
+    transform: scale(1.05);
+}
+
+/* Colores y Brillo para X y O */
+.cell.x {
+    color: var(--x-color);
+    text-shadow: 0 0 15px var(--x-color); /* Efecto Neón */
+}
+
+.cell.o {
+    color: var(--o-color);
+    text-shadow: 0 0 15px var(--o-color); /* Efecto Neón */
+}
+
+/* Animación cuando aparece una ficha */
+.cell.x, .cell.o {
+    animation: popIn 0.3s ease forwards;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Estilo para el ganador */
+.cell.winner {
+    background-color: var(--win-color) !important;
+    color: white !important;
+    text-shadow: none;
+    animation: winnerPulse 1s infinite alternate;
+}
+
+@keyframes winnerPulse {
+    from { box-shadow: 0 0 10px var(--win-color); }
+    to { box-shadow: 0 0 30px var(--win-color); }
+}
+
+/* Controles inferiores (Reiniciar/Volver) */
+.controls {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    max-width: 350px;
+}
+
+.controls button {
+    flex: 1;
+    background-color: var(--cell-bg);
+    color: #aebcff;
+    border: 1px solid var(--accent);
+}
+
+.controls button:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+/* Utilidad */
+.hidden {
+    display: none !important;
+}
+
+/* --- Responsive (Celulares) --- */
+@media (max-width: 480px) {
+    .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+    }
+    
+    .setup-screen {
+        padding: 20px;
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
