@@ -1,0 +1,90 @@
+/* Configuración básica */
+body {
+    font-family: sans-serif;
+    background-color: #2c3e50; /* Fondo oscuro */
+    color: white;
+    text-align: center;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-principal {
+    max-width: 800px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 0;
+}
+
+.marcador {
+    font-size: 2rem;
+    color: #f1c40f; /* Puntos en amarillo */
+    margin: 10px 0 30px;
+}
+
+/* --- BOTONES --- */
+.controles {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin: 0 10px;
+}
+
+#btn-iniciar { background-color: #27ae60; }
+#btn-iniciar:hover { background-color: #2ecc71; }
+
+#btn-lobby { background-color: #7f8c8d; }
+#btn-lobby:hover { background-color: #95a5a6; }
+
+/* --- TABLERO DE JUEGO --- */
+.juego {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los agujeros bajen de línea si no caben */
+    justify-content: center;
+    gap: 20px;
+}
+
+/* El montículo de tierra */
+.agujero {
+    flex: 1 0 30%; /* Ocupa aprox 1/3 del ancho */
+    min-width: 150px;
+    max-width: 200px;
+    height: 150px;
+    background-color: #3e2723; /* Marrón tierra oscura */
+    border-radius: 50% 50% 20% 20%; /* Forma de montículo */
+    position: relative;
+    overflow: hidden; /* ¡IMPORTANTE! Esto corta al topo cuando baja */
+    border-bottom: 5px solid #5d4037;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>') 12 12, crosshair; /* Cursor de mira */
+}
+
+/* El personaje (Topo) */
+.topo {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 100%; /* Empieza escondido abajo (fuera del agujero) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem; /* Tamaño del emoji */
+    transition: top 0.4s; /* Animación suave al subir/bajar */
+    user-select: none; /* Evita que se seleccione el emoji como texto */
+}
+
+/* Clase que JS añade para que el topo suba */
+.topo.subir {
+    top: 10px; /* Sube hasta casi el borde superior */
+}

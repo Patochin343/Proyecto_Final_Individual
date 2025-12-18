@@ -1,0 +1,101 @@
+/* Estilos generales */
+body {
+    font-family: sans-serif;
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.contenedor-principal {
+    text-align: center;
+    max-width: 640px;
+    padding: 20px;
+}
+
+/* El panel ahora distribuye el espacio entre los 3 elementos */
+.info-panel {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between; /* Separa los botones y el texto */
+    align-items: center;
+    font-size: 1.2rem;
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+/* Estilo base para todos los botones */
+button {
+    padding: 8px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    transition: background-color 0.3s; /* Suaviza el cambio de color */
+}
+
+/* Estilo específico para el botón de REINICIAR (Verde) */
+#btn-reiniciar {
+    background-color: #27ae60;
+}
+#btn-reiniciar:hover {
+    background-color: #2ecc71;
+}
+
+/* Estilo específico para el botón de LOBBY (Azul) */
+#btn-lobby {
+    background-color: #2980b9;
+}
+#btn-lobby:hover {
+    background-color: #3498db;
+}
+
+/* --- TABLERO Y CARTAS --- */
+.tablero-juego {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 15px;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.carta {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.carta.flip {
+    transform: rotateY(180deg);
+}
+
+.cara {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    backface-visibility: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.cara-frontal {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    transform: rotateY(180deg);
+}
+
+.cara-trasera {
+    background-color: #34495e;
+    color: #7f8c8d;
+    font-size: 2rem;
+}

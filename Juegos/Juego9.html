@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Ahorcado</title>
+    <link rel="stylesheet" href="/Diseños/Juego9.css">
+    <link rel="icon" type="image/png" href="/Img/Ahorcado.png">
+</head>
+<body>
 
+    <div class="contenedor-principal">
+        <h1>El Ahorcado</h1>
+
+        <div class="zona-juego">
+            
+            <div class="contenedor-dibujo">
+                <svg height="250" width="200" class="figura-svg">
+                    <line x1="60" y1="20" x2="140" y2="20" />
+                    <line x1="140" y1="20" x2="140" y2="50" />
+                    <line x1="60" y1="20" x2="60" y2="230" />
+                    <line x1="20" y1="230" x2="100" y2="230" />
+
+                    <circle cx="140" cy="70" r="20" class="parte-cuerpo" id="parte-0" />
+                    <line x1="140" y1="90" x2="140" y2="150" class="parte-cuerpo" id="parte-1" />
+                    <line x1="140" y1="120" x2="100" y2="100" class="parte-cuerpo" id="parte-2" />
+                    <line x1="140" y1="120" x2="180" y2="100" class="parte-cuerpo" id="parte-3" />
+                    <line x1="140" y1="150" x2="100" y2="190" class="parte-cuerpo" id="parte-4" />
+                    <line x1="140" y1="150" x2="180" y2="190" class="parte-cuerpo" id="parte-5" />
+                </svg>
+            </div>
+
+            <div id="palabra-oculta" class="palabra-container">
+                </div>
+            
+            <p id="mensaje-estado" class="mensaje"></p>
+
+            <div id="teclado" class="teclado-container">
+                </div>
+        </div>
+
+        <div class="controles">
+            <button id="btn-reiniciar" class="btn-accion">Nueva Palabra</button>
+            <button id="btn-lobby" class="btn-accion secundario">⬅ Volver al Lobby</button>
+        </div>
+    </div>
+
+    <script src="/Scripts/Juego9.js"></script>
+</body>
+</html>

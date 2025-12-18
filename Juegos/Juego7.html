@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra, Papel o Tijera</title>
+    <link rel="stylesheet" href="/Diseños/Juego7.css">
+    <link rel="icon" type="image/png" href="/Img/PPT.png">
+</head>
+<body>
 
+    <div class="contenedor-principal">
+        <h1>Piedra, Papel o Tijera</h1>
+
+        <div class="marcador">
+            <div class="caja-puntos jugador">
+                Tú<br><span id="puntos-usuario">0</span>
+            </div>
+            <div class="caja-puntos cpu">
+                CPU<br><span id="puntos-cpu">0</span>
+            </div>
+        </div>
+
+        <h2 id="mensaje-resultado">¡Elige tu arma!</h2>
+
+        <div class="zona-batalla">
+            <div id="eleccion-usuario" class="emoji-batalla">❔</div>
+            <div class="vs">VS</div>
+            <div id="eleccion-cpu" class="emoji-batalla">❔</div>
+        </div>
+
+        <div class="opciones">
+            <button class="btn-arma" id="piedra">🪨</button>
+            <button class="btn-arma" id="papel">📄</button>
+            <button class="btn-arma" id="tijera">✂️</button>
+        </div>
+
+        <p class="instruccion-peque">Haz clic en un emoji para jugar</p>
+
+        <div class="navegacion">
+            <button id="btn-lobby">⬅ Volver al Lobby</button>
+            <button id="btn-reiniciar">Reiniciar Marcador</button>
+        </div>
+    </div>
+
+    <script src="/Scripts/Juego7.js"></script>
+</body>
+</html>

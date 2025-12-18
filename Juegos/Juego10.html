@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invaders</title>
+    <link rel="stylesheet" href="/Diseños/Juego10.css">
+    <link rel="icon" type="image/png" href="/Img/Space Invaders.png">
+</head>
+<body>
 
+    <div class="contenedor-principal">
+        <h1>👾 Space Invaders</h1>
+        
+        <div class="info-juego">
+            <span>Puntos: <b id="score">0</b></span>
+            <span>Nivel: <b id="nivel">1</b></span>
+        </div>
+
+        <canvas id="canvas-juego" width="480" height="400"></canvas>
+        
+        <p id="mensaje-estado" class="mensaje-oculto"></p>
+
+        <div class="controles">
+            <button id="btn-iniciar">Iniciar Misión</button>
+            <button id="btn-lobby" class="btn-secundario">⬅ Volver al Lobby</button>
+        </div>
+
+        <div class="instrucciones">
+            <p>⬅️ ➡️ Moverse | <b>ESPACIO</b> Disparar</p>
+        </div>
+        
+        <div class="controles-movil">
+            <button id="btn-izq">⬅️</button>
+            <button id="btn-disparo" class="btn-fuego">🔥</button>
+            <button id="btn-der">➡️</button>
+        </div>
+    </div>
+
+    <script src="/Scripts/Juego10.js"></script>
+</body>
+</html>

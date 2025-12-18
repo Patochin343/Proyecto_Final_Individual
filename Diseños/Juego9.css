@@ -1,0 +1,107 @@
+/* Configuración básica (Tema oscuro) */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.contenedor-principal {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 { margin-top: 0; }
+
+/* --- EL DIBUJO --- */
+.contenedor-dibujo {
+    background-color: #34495e; /* Fondo un poco más claro para el dibujo */
+    border-radius: 10px;
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* Configuración de las líneas del dibujo SVG */
+.figura-svg {
+    stroke: white; /* Color de las líneas */
+    stroke-width: 4; /* Grosor */
+    fill: none; /* Sin relleno para el círculo de la cabeza */
+    stroke-linecap: round; /* Bordes redondeados en las líneas */
+}
+
+/* IMPORTANTE: Ocultamos las partes del cuerpo por defecto */
+.parte-cuerpo {
+    display: none;
+}
+
+/* --- LA PALABRA --- */
+.palabra-container {
+    font-size: 2.5rem;
+    letter-spacing: 10px; /* Espacio entre letras */
+    margin: 20px 0;
+    font-weight: bold;
+    min-height: 50px;
+    color: #f1c40f; /* Color amarillo para las letras */
+}
+
+.mensaje {
+    font-size: 1.2rem;
+    min-height: 1.5em;
+    font-weight: bold;
+}
+
+/* --- EL TECLADO --- */
+.teclado-container {
+    display: flex;
+    flex-wrap: wrap; /* Para que los botones bajen si no caben */
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.tecla {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+}
+
+.tecla:hover:not(:disabled) {
+    background-color: #bdc3c7;
+}
+
+/* Estilo para teclas usadas */
+.tecla:disabled {
+    background-color: #7f8c8d; /* Gris oscuro */
+    color: #95a5a6;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* --- BOTONES DE CONTROL --- */
+.btn-accion {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #27ae60;
+    color: white;
+}
+
+.btn-accion:hover { background-color: #2ecc71; }
+
+.secundario { background-color: #e67e22; }
+.secundario:hover { background-color: #d35400; }

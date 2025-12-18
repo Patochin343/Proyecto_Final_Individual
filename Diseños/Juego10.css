@@ -1,0 +1,107 @@
+/* Estilo base oscuro */
+body {
+    font-family: 'Courier New', Courier, monospace; /* Fuente monoespaciada retro */
+    background-color: #1a1a1a;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 10px;
+}
+
+.contenedor-principal {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    color: #00ff00; /* Verde terminal */
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    margin-top: 0;
+}
+
+.info-juego {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    color: #00ff00;
+}
+
+/* --- EL CANVAS --- */
+canvas {
+    background-color: #000;
+    border: 4px solid #333;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+/* Mensaje de victoria/derrota */
+#mensaje-estado {
+    font-size: 1.5rem;
+    font-weight: bold;
+    min-height: 30px;
+    margin: 10px 0;
+}
+.mensaje-oculto { visibility: hidden; }
+
+/* --- BOTONES --- */
+.controles {
+    margin: 15px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-transform: uppercase;
+}
+
+#btn-iniciar {
+    background-color: #00ff00;
+    color: black;
+}
+#btn-iniciar:hover { background-color: #32cd32; }
+
+.btn-secundario { background-color: #555; }
+.btn-secundario:hover { background-color: #777; }
+
+.instrucciones {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* --- CONTROLES MÓVIL --- */
+.controles-movil {
+    display: none; /* Oculto en PC */
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.controles-movil button {
+    padding: 15px 25px;
+    font-size: 1.5rem;
+    background-color: #333;
+    border: 1px solid #555;
+}
+
+.btn-fuego {
+    background-color: #d32f2f !important; /* Rojo para disparar */
+}
+
+@media (max-width: 600px) {
+    .controles-movil { display: flex; }
+    .instrucciones { display: none; } /* Ocultamos texto en móvil para ahorrar espacio */
+}

@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Clicker</title>
+    <link rel="stylesheet" href="/Diseños/Juego5.css">
+    <link rel="icon" type="image/png" href="/Img/Clicker.png">
+</head>
+<body>
 
+    <div class="contenedor-principal">
+        <h1>Super Clicker</h1>
+        
+        <div class="marcador">
+            <span class="texto-puntos">Puntos: <b id="puntaje">0</b></span>
+            <div class="stats-extra">
+                <small>Puntos por clic: <span id="puntos-por-clic">1</span></small> | 
+                <small>Auto-clics por seg: <span id="auto-clics">0</span></small>
+            </div>
+        </div>
+
+        <button id="btn-clicker" class="boton-gigante">¡CLIC!</button>
+
+        <div class="tienda">
+            <h3>Tienda de Mejoras</h3>
+            
+            <button id="btn-mejora-clic" class="item-tienda" disabled>
+                Fuerza (+1 por clic) <br> 
+                <small>Costo: <span id="costo-mejora">10</span></small>
+            </button>
+            
+            <button id="btn-auto-clic" class="item-tienda" disabled>
+                Robot (1 clic/seg) <br> 
+                <small>Costo: <span id="costo-auto">50</span></small>
+            </button>
+        </div>
+
+        <div class="navegacion">
+            <button id="btn-lobby" class="btn-nav">Volver al Lobby</button>
+            <button id="btn-reiniciar" class="btn-nav">Reiniciar Progreso</button>
+        </div>
+    </div>
+
+    <script src="/Scripts/Juego5.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+/* Configuración base igual a los anteriores */
+body {
+    font-family: sans-serif;
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.contenedor-principal {
+    text-align: center;
+    background-color: #34495e; /* Un tono un poco más claro para la tarjeta */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 { margin-top: 0; }
+
+.instrucciones {
+    color: #bdc3c7;
+    margin-bottom: 20px;
+}
+
+/* ZONA DE JUEGO */
+.zona-juego {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo del campo donde escribes el número */
+input[type="number"] {
+    padding: 10px;
+    font-size: 1.2rem;
+    width: 80px;
+    text-align: center;
+    border: 2px solid #ecf0f1;
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="number"]:focus {
+    border-color: #3498db; /* Azul al seleccionarlo */
+}
+
+/* Botón principal de "Probar" */
+#btn-adivinar {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#btn-adivinar:hover { background-color: #2980b9; }
+
+/* --- MENSAJES Y PISTAS --- */
+.mensaje {
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-height: 1.5em; /* Reserva espacio para que no brinque el diseño */
+    margin: 15px 0;
+}
+
+.pista-normal { color: #f1c40f; } /* Amarillo */
+.exito { color: #2ecc71; }        /* Verde */
+.error { color: #e74c3c; }        /* Rojo */
+
+.info-extra {
+    font-size: 0.9rem;
+    color: #95a5a6;
+    margin-bottom: 30px;
+    border-top: 1px solid #7f8c8d;
+    padding-top: 15px;
+}
+
+/* BOTONES DE NAVEGACIÓN */
+.botones-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-secundario {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #7f8c8d;
+    color: white;
+    flex: 1;
+}
+
+.btn-secundario:hover { opacity: 0.8; }

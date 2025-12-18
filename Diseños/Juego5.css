@@ -1,0 +1,115 @@
+/* Configuración base */
+body {
+    font-family: sans-serif;
+    background-color: #2c3e50; /* Seguimos con el tema oscuro */
+    color: white;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.contenedor-principal {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+/* --- EL MARCADOR --- */
+.marcador {
+    background-color: #34495e;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.texto-puntos {
+    font-size: 2.5rem;
+    display: block;
+    color: #f1c40f; /* Amarillo dorado para los puntos */
+}
+
+.stats-extra {
+    color: #bdc3c7;
+    margin-top: 5px;
+    font-size: 0.9rem;
+}
+
+/* --- EL BOTÓN DE CLIC --- */
+.boton-gigante {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; /* Lo hace redondo */
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    background: radial-gradient(circle, #e74c3c, #c0392b); /* Degradado rojo */
+    border: 4px solid #ecf0f1;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    outline: none;
+    margin-bottom: 30px;
+    box-shadow: 0 6px 0 #96281b; /* Efecto 3D de botón presionado */
+}
+
+/* Efecto al presionar el botón gigante */
+.boton-gigante:active {
+    transform: translateY(4px); /* Se mueve hacia abajo */
+    box-shadow: 0 2px 0 #96281b; /* La sombra se reduce */
+}
+
+/* --- LA TIENDA --- */
+.tienda {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.item-tienda {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    transition: background-color 0.3s;
+}
+
+.item-tienda:hover:not(:disabled) {
+    background-color: #2980b9;
+}
+
+/* Estilo cuando no tienes suficientes puntos */
+.item-tienda:disabled {
+    background-color: #7f8c8d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* --- BOTONES DE NAVEGACIÓN --- */
+.navegacion {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-nav {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    flex: 1; /* Para que ocupen el mismo ancho */
+}
+
+#btn-lobby { background-color: #95a5a6; }
+#btn-lobby:hover { background-color: #7f8c8d; }
+
+#btn-reiniciar { background-color: #e67e22; }
+#btn-reiniciar:hover { background-color: #d35400; }
