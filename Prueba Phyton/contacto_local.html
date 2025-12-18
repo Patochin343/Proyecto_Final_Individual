@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba Python Local</title>
+    <style>
+        body { font-family: sans-serif; background: #eee; padding: 40px; }
+        .caja { 
+            background: white; 
+            padding: 30px; 
+            max-width: 400px; 
+            margin: 0 auto; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+        }
+        h2 { text-align: center; color: #333; }
+        input, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 4px;
+            box-sizing: border-box; /* Para que el padding no rompa el ancho */
+        }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 16px;
+        }
+        button:hover { background: #0056b3; }
+        .nota { font-size: 0.8rem; color: #666; text-align: center; margin-top: 20px;}
+    </style>
+</head>
+<body>
+
+    <div class="caja">
+        <h2>Buzón Local (Python)</h2>
+        
+        <form action="/guardar_local" method="POST">
+            
+            <label>Nombre:</label>
+            <input type="text" name="nombre" required placeholder="Tu nombre">
+            
+            <label>Mensaje:</label>
+            <textarea name="mensaje" rows="4" required placeholder="Escribe algo..."></textarea>
+            
+            <button type="submit">Guardar en PC</button>
+        </form>
+
+        <p class="nota">
+            Este formulario no conecta a internet.<br>
+            Los datos se guardan en <b>buzon_local.csv</b>
+        </p>
+    </div>
+
+</body>
+</html>

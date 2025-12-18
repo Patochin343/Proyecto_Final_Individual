@@ -1,82 +1,80 @@
+// Importamos todo lo necesario de Firebase
+import { db, collection, addDoc, query, orderBy, limit, getDocs } from './firebase-config.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Primero agarramos todos los elementos del HTML que vamos a usar
+    // --- ELEMENTOS ---
     const canvas = document.getElementById('canvas-juego');
-    const ctx = canvas.getContext('2d'); // Esto es nuestro pincel virtual
-    
+    const ctx = canvas.getContext('2d');
     const displayPuntos = document.getElementById('score');
     const displayNivel = document.getElementById('nivel');
     const mensajeEstado = document.getElementById('mensaje-estado');
     const btnIniciar = document.getElementById('btn-iniciar');
     const btnLobby = document.getElementById('btn-lobby');
+    const listaLeaderboard = document.getElementById('lista-leaderboard');
 
-    // Variables para controlar qué está pasando en el juego
+    // --- VARIABLES DE JUEGO ---
     let juegoActivo = false;
-    let animacionId; // Para poder pausar o parar el bucle luego
+    let animacionId;
     let puntuacion = 0;
     let nivel = 1;
+    let usuarioActual = "Invitado"; // Por defecto
 
-    // Configuramos al Jugador (nuestra navecita)
+    // Verificamos si hay usuario logueado
+    const storedUser = localStorage.getItem('user_game_portal');
+    if (storedUser) {
+        const userObj = JSON.parse(storedUser);
+        usuarioActual = userObj.username;
+        console.log("Jugando como:", usuarioActual);
+    }
+
+    // --- CONFIGURACIÓN OBJETOS (Nave, Aliens, Balas) ---
     const jugador = {
-        x: canvas.width / 2 - 15, // Empieza en el centro
-        y: canvas.height - 30,    // Pegado al suelo
+        x: canvas.width / 2 - 15,
+        y: canvas.height - 30,
         ancho: 30,
         alto: 20,
         velocidad: 5,
-        dx: 0, // dx es "cuánto me muevo en X", si es 0 estoy quieto
+        dx: 0,
         color: '#00ff00'
     };
 
-    // Aquí guardaremos las balas que disparemos
     let balas = [];
     const velocidadBala = 7;
-
-    // Y aquí guardaremos el ejército de aliens
     let aliens = [];
     
-    // Configuración de la horda alienígena
     const filasAliens = 4;
     const columnasAliens = 8;
     const alienAncho = 30;
     const alienAlto = 20;
-    const alienPadding = 10; // Espacio entre ellos
-    const alienOffsetTop = 30; // Margen superior
-    const alienOffsetLeft = 30; // Margen izquierdo
+    const alienPadding = 10;
+    const alienOffsetTop = 30;
+    const alienOffsetLeft = 30;
     
-    // Cómo se mueven los aliens
-    let alienDx = 1; // Velocidad lateral
-    let alienDy = 10; // Cuánto bajan cuando tocan la pared
+    let alienDx = 1;
+    let alienDy = 10;
 
-    // Escuchamos el teclado para movernos
+    // Cargar el ranking apenas entramos a la página
+    cargarLeaderboard();
+
+    // --- LISTENERS ---
     document.addEventListener('keydown', teclaPresionada);
     document.addEventListener('keyup', teclaSoltada);
 
     function teclaPresionada(e) {
-        if (!juegoActivo) return; // Si el juego no empezó, ignoramos las teclas
-
-        // Si tocas flecha derecha o izquierda, cambiamos la velocidad
-        if (e.key === 'Right' || e.key === 'ArrowRight') {
-            jugador.dx = jugador.velocidad;
-        } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
-            jugador.dx = -jugador.velocidad;
-        } else if (e.key === ' ' || e.code === 'Space') {
-            disparar(); // ¡Pium pium!
-        }
+        if (!juegoActivo) return;
+        if (e.key === 'Right' || e.key === 'ArrowRight') jugador.dx = jugador.velocidad;
+        else if (e.key === 'Left' || e.key === 'ArrowLeft') jugador.dx = -jugador.velocidad;
+        else if (e.key === ' ' || e.code === 'Space') disparar();
     }
 
     function teclaSoltada(e) {
         if (!juegoActivo) return;
-
-        // Si sueltas la tecla, la nave se frena (dx vuelve a 0)
-        if (
-            e.key === 'Right' || e.key === 'ArrowRight' || 
-            e.key === 'Left' || e.key === 'ArrowLeft'
-        ) {
-            jugador.dx = 0;
-        }
+        if (['Right', 'ArrowRight', 'Left', 'ArrowLeft'].includes(e.key)) jugador.dx = 0;
     }
 
-    // Función para arrancar todo desde cero
+    // --- FUNCIONES PRINCIPALES ---
+
     function iniciarJuego() {
         if (juegoActivo) return;
 
@@ -84,37 +82,33 @@ document.addEventListener('DOMContentLoaded', () => {
         puntuacion = 0;
         nivel = 1;
         balas = [];
-        alienDx = 1; // Empiezan lentos
+        alienDx = 1; 
         
         displayPuntos.innerText = puntuacion;
         displayNivel.innerText = nivel;
         mensajeEstado.style.visibility = 'hidden';
         btnIniciar.disabled = true;
-        btnIniciar.innerText = "Jugando...";
+        btnIniciar.innerText = "Misión en curso...";
 
-        // Creamos la primera oleada y arrancamos el motor
         crearAliens();
         gameLoop();
     }
 
-    // Llenamos el array de aliens calculando su posición en la rejilla
     function crearAliens() {
         aliens = [];
         for (let c = 0; c < columnasAliens; c++) {
             for (let f = 0; f < filasAliens; f++) {
                 let alienX = (c * (alienAncho + alienPadding)) + alienOffsetLeft;
                 let alienY = (f * (alienAlto + alienPadding)) + alienOffsetTop;
-                // "vivo: true" es clave para saber si lo dibujamos o no
                 aliens.push({ x: alienX, y: alienY, vivo: true });
             }
         }
     }
 
     function disparar() {
-        // Truco: limitamos las balas a 3 para que no sea tan fácil
         if (balas.length < 3) {
             balas.push({
-                x: jugador.x + jugador.ancho / 2 - 2, // Sale del centro de la nave
+                x: jugador.x + jugador.ancho / 2 - 2,
                 y: jugador.y,
                 ancho: 4,
                 alto: 10
@@ -122,57 +116,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // El corazón del juego: esto se ejecuta unas 60 veces por segundo
     function gameLoop() {
         if (!juegoActivo) return;
 
-        // 1. Borramos todo lo que había en el cuadro anterior
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // 2. Dibujamos todo en su nueva posición
         dibujarJugador();
         dibujarBalas();
         dibujarAliens();
         
-        // 3. Calculamos las nuevas posiciones
         moverJugador();
         moverBalas();
         moverAliens();
         
-        // 4. Verificamos choques y reglas
         detectarColisiones();
         verificarNivel();
 
-        // 5. Pedimos al navegador que repita esto en el siguiente frame
         animacionId = requestAnimationFrame(gameLoop);
     }
 
-    // Función simple para dibujar la navecita verde
+    // --- DIBUJADO Y FÍSICAS (Resumido igual que antes) ---
     function dibujarJugador() {
         ctx.fillStyle = jugador.color;
-        // Hago una forma escalonada simple con dos rectángulos
-        ctx.fillRect(jugador.x, jugador.y + 10, jugador.ancho, 10); // Base
-        ctx.fillRect(jugador.x + 10, jugador.y, 10, 10); // Cañoncito
+        ctx.fillRect(jugador.x, jugador.y + 10, jugador.ancho, 10);
+        ctx.fillRect(jugador.x + 10, jugador.y, 10, 10);
     }
-
     function dibujarBalas() {
-        ctx.fillStyle = '#ffff00'; // Amarillo láser
-        balas.forEach(bala => {
-            ctx.fillRect(bala.x, bala.y, bala.ancho, bala.alto);
-        });
+        ctx.fillStyle = '#ffff00';
+        balas.forEach(b => ctx.fillRect(b.x, b.y, b.ancho, b.alto));
     }
-
     function dibujarAliens() {
-        ctx.fillStyle = '#ff0055'; // Rojo alienígena
-        aliens.forEach(alien => {
-            if (alien.vivo) {
-                // Dibujo el cuerpo principal
-                ctx.fillRect(alien.x, alien.y, alienAncho, alienAlto);
-                // Le pinto unos ojitos negros para darle personalidad
+        ctx.fillStyle = '#ff0055';
+        aliens.forEach(a => {
+            if (a.vivo) {
+                ctx.fillRect(a.x, a.y, alienAncho, alienAlto);
                 ctx.fillStyle = 'black';
-                ctx.fillRect(alien.x + 5, alien.y + 5, 5, 5);
-                ctx.fillRect(alien.x + 20, alien.y + 5, 5, 5);
-                // Vuelvo al color rojo para el siguiente alien
+                ctx.fillRect(a.x + 5, a.y + 5, 5, 5); 
+                ctx.fillRect(a.x + 20, a.y + 5, 5, 5);
                 ctx.fillStyle = '#ff0055'; 
             }
         });
@@ -180,129 +160,137 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function moverJugador() {
         jugador.x += jugador.dx;
-
-        // Evitamos que la nave se salga por la izquierda o derecha
         if (jugador.x < 0) jugador.x = 0;
         if (jugador.x + jugador.ancho > canvas.width) jugador.x = canvas.width - jugador.ancho;
     }
-
     function moverBalas() {
-        balas.forEach((bala, index) => {
-            bala.y -= velocidadBala; // Van hacia arriba (Y disminuye)
-            
-            // Si la bala se fue al cielo, la borramos para ahorrar memoria
-            if (bala.y < 0) {
-                balas.splice(index, 1);
-            }
+        balas.forEach((b, i) => {
+            b.y -= velocidadBala;
+            if (b.y < 0) balas.splice(i, 1);
         });
     }
-
     function moverAliens() {
         let tocarBorde = false;
-
-        // Movemos a todos los aliens
-        aliens.forEach(alien => {
-            if (alien.vivo) {
-                alien.x += alienDx;
-                
-                // Chequeamos si alguno tocó la pared derecha o izquierda
-                if (alien.x + alienAncho > canvas.width || alien.x < 0) {
-                    tocarBorde = true;
-                }
+        aliens.forEach(a => {
+            if (a.vivo) {
+                a.x += alienDx;
+                if (a.x + alienAncho > canvas.width || a.x < 0) tocarBorde = true;
             }
         });
-
-        // Si tocaron pared, todo el grupo baja y cambia de dirección
         if (tocarBorde) {
-            alienDx = -alienDx; 
-            aliens.forEach(alien => {
-                if (alien.vivo) {
-                    alien.y += alienDy;
-                }
-            });
+            alienDx = -alienDx;
+            aliens.forEach(a => { if (a.vivo) a.y += alienDy; });
         }
     }
 
-    // Aquí pasa la magia de detectar impactos
     function detectarColisiones() {
-        balas.forEach((bala, bIndex) => {
-            aliens.forEach((alien, aIndex) => {
-                if (alien.vivo) {
-                    // Esta matemática verifica si dos rectángulos se superponen
-                    if (
-                        bala.x < alien.x + alienAncho &&
-                        bala.x + bala.ancho > alien.x &&
-                        bala.y < alien.y + alienAlto &&
-                        bala.y + bala.alto > alien.y
-                    ) {
-                        // ¡BOOM!
-                        alien.vivo = false;
-                        balas.splice(bIndex, 1); // Adiós bala
-                        puntuacion += 10;
-                        displayPuntos.innerText = puntuacion;
-                    }
+        balas.forEach((b, bi) => {
+            aliens.forEach((a, ai) => {
+                if (a.vivo && b.x < a.x + alienAncho && b.x + b.ancho > a.x && b.y < a.y + alienAlto && b.y + b.alto > a.y) {
+                    a.vivo = false;
+                    balas.splice(bi, 1);
+                    puntuacion += 10;
+                    displayPuntos.innerText = puntuacion;
                 }
             });
         });
 
-        // Verificar si nos invadieron (si tocan nuestra altura)
-        aliens.forEach(alien => {
-            if (alien.vivo) {
-                if (alien.y + alienAlto >= jugador.y) {
-                    finJuego(false); // Perdimos
-                }
-            }
+        aliens.forEach(a => {
+            if (a.vivo && a.y + alienAlto >= jugador.y) finJuego();
         });
     }
 
     function verificarNivel() {
-        // Contamos cuántos quedan vivos
-        const vivos = aliens.filter(alien => alien.vivo).length;
-        
-        if (vivos === 0) {
-            // ¡Nivel superado!
+        if (aliens.filter(a => a.vivo).length === 0) {
             nivel++;
             displayNivel.innerText = nivel;
-            
-            // Hacemos que vayan más rápido para aumentar el reto
-            if (alienDx > 0) alienDx += 0.5;
-            else alienDx -= 0.5;
-
-            crearAliens(); // Traemos refuerzos enemigos
+            alienDx > 0 ? alienDx += 0.5 : alienDx -= 0.5;
+            crearAliens();
         }
     }
 
-    function finJuego(ganador) {
+    // --- FIN DEL JUEGO Y LEADERBOARD ---
+    
+    function finJuego() {
         juegoActivo = false;
-        cancelAnimationFrame(animacionId); // Detenemos el bucle
+        cancelAnimationFrame(animacionId);
         
         mensajeEstado.style.visibility = 'visible';
         mensajeEstado.style.color = 'red';
-        mensajeEstado.innerText = "¡GAME OVER! La invasión ha triunfado.";
+        mensajeEstado.innerText = `¡GAME OVER! Puntos: ${puntuacion}`;
         
         btnIniciar.disabled = false;
         btnIniciar.innerText = "Reintentar";
+
+        // Guardar puntaje si es mayor a 0
+        if (puntuacion > 0) {
+            guardarPuntaje(puntuacion);
+        }
     }
 
-    // Configuración para botones en pantalla táctil
+    async function guardarPuntaje(puntosFinales) {
+        // Solo guardamos si hay un usuario real (no invitado)
+        // O si quieres que Invitados guarden, quita este if
+        if (usuarioActual === "Invitado") {
+            console.log("Puntaje no guardado (Invitado)");
+            return;
+        }
+
+        try {
+            await addDoc(collection(db, "puntajes_space"), {
+                usuario: usuarioActual,
+                puntos: puntosFinales,
+                fecha: new Date().toISOString()
+            });
+            console.log("Puntaje guardado en la nube");
+            // Actualizamos la tabla para ver mi nuevo record
+            cargarLeaderboard();
+        } catch (e) {
+            console.error("Error guardando puntaje: ", e);
+        }
+    }
+
+    async function cargarLeaderboard() {
+        listaLeaderboard.innerHTML = '<li>Cargando...</li>';
+        
+        try {
+            // Consulta: Dame la colección 'puntajes_space', ordénala por 'puntos' descendente, solo 5
+            const q = query(collection(db, "puntajes_space"), orderBy("puntos", "desc"), limit(5));
+            const querySnapshot = await getDocs(q);
+            
+            listaLeaderboard.innerHTML = ''; // Limpiar lista
+            
+            if (querySnapshot.empty) {
+                listaLeaderboard.innerHTML = '<li>Sin registros aún</li>';
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${data.usuario}</span> <span>${data.puntos}</span>`;
+                listaLeaderboard.appendChild(li);
+            });
+
+        } catch (e) {
+            console.error("Error cargando leaderboard:", e);
+            listaLeaderboard.innerHTML = '<li>Error de conexión</li>';
+        }
+    }
+
+    // Controles Touch
     const btnIzq = document.getElementById('btn-izq');
     const btnDer = document.getElementById('btn-der');
     const btnFuego = document.getElementById('btn-disparo');
 
-    // Manejo eventos de mouse y touch para que funcione en PC y Celular
-    btnIzq.addEventListener('mousedown', () => jugador.dx = -jugador.velocidad);
-    btnIzq.addEventListener('mouseup', () => jugador.dx = 0);
-    btnIzq.addEventListener('touchstart', (e) => { e.preventDefault(); jugador.dx = -jugador.velocidad; });
-    btnIzq.addEventListener('touchend', (e) => { e.preventDefault(); jugador.dx = 0; });
+    if(btnIzq && btnDer && btnFuego) {
+        btnIzq.addEventListener('touchstart', (e) => { e.preventDefault(); jugador.dx = -jugador.velocidad; });
+        btnIzq.addEventListener('touchend', (e) => { e.preventDefault(); jugador.dx = 0; });
+        btnDer.addEventListener('touchstart', (e) => { e.preventDefault(); jugador.dx = jugador.velocidad; });
+        btnDer.addEventListener('touchend', (e) => { e.preventDefault(); jugador.dx = 0; });
+        btnFuego.addEventListener('click', (e) => { e.preventDefault(); if(juegoActivo) disparar(); });
+    }
 
-    btnDer.addEventListener('mousedown', () => jugador.dx = jugador.velocidad);
-    btnDer.addEventListener('mouseup', () => jugador.dx = 0);
-    btnDer.addEventListener('touchstart', (e) => { e.preventDefault(); jugador.dx = jugador.velocidad; });
-    btnDer.addEventListener('touchend', (e) => { e.preventDefault(); jugador.dx = 0; });
-
-    btnFuego.addEventListener('click', (e) => { e.preventDefault(); if(juegoActivo) disparar(); });
-
-    // Botones del menú
     btnIniciar.addEventListener('click', iniciarJuego);
     btnLobby.addEventListener('click', () => window.location.href = '/Lobby.html');
 });

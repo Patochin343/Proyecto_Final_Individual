@@ -1,80 +1,62 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Referencias a los elementos del DOM
-    const registerForm = document.getElementById('registerForm');
-    const usernameInput = document.getElementById('new-username');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('new-password');
-    const confirmPasswordInput = document.getElementById('confirm-password');
+import { db, collection, addDoc, query, where, getDocs } from './firebase-config.js';
 
-    registerForm.addEventListener('submit', (e) => {
+document.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('registerForm');
+
+    registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Limpiar estilos de error previos
-        limpiarErrores([usernameInput, emailInput, passwordInput, confirmPasswordInput]);
+        // Referencias a inputs
+        const username = document.getElementById('new-username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const btnRegister = document.querySelector('.btn-register');
 
-        // Obtener valores y quitar espacios vacíos al inicio/final
-        const username = usernameInput.value.trim();
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
-        const confirmPassword = confirmPasswordInput.value;
-
-        // --- 1. VALIDACIONES ---
-
-        // A. Campos vacíos
-        if (!username || !email || !password || !confirmPassword) {
-            alert('⚠️ Por favor, completa todos los campos.');
-            return;
-        }
-
-        // B. Longitud de contraseña (mínimo 6 caracteres)
-        if (password.length < 6) {
-            alert('⚠️ La contraseña es muy corta. Debe tener al menos 6 caracteres.');
-            marcarError(passwordInput);
-            return;
-        }
-
-        // C. Coincidencia de contraseñas
+        // 1. Validaciones básicas
         if (password !== confirmPassword) {
-            alert('❌ Error: Las contraseñas no coinciden.');
-            marcarError(confirmPasswordInput);
-            marcarError(passwordInput);
-            return; 
+            alert('❌ Las contraseñas no coinciden.');
+            return;
+        }
+        if (password.length < 6) {
+            alert('⚠️ La contraseña es muy corta (mínimo 6 caracteres).');
+            return;
         }
 
-        // D. (Opcional) Verificar si ya existe un usuario para no sobrescribirlo
-        if (localStorage.getItem('user_game_portal')) {
-            const confirmOverwrite = confirm('⚠️ Ya existe un usuario registrado. ¿Quieres sobrescribirlo?');
-            if (!confirmOverwrite) return;
+        // Efecto de carga
+        const textoOriginal = btnRegister.innerHTML;
+        btnRegister.disabled = true;
+        btnRegister.innerHTML = 'Verificando...';
+
+        try {
+            // 2. Verificar si el usuario YA existe en Firebase
+            const usuariosRef = collection(db, "usuarios");
+            const q = query(usuariosRef, where("username", "==", username));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                alert('⚠️ Ese nombre de usuario ya está en uso. Elige otro.');
+                btnRegister.disabled = false;
+                btnRegister.innerHTML = textoOriginal;
+                return;
+            }
+
+            // 3. Crear el usuario si no existe
+            await addDoc(collection(db, "usuarios"), {
+                username: username,
+                email: email,
+                password: password, 
+                fechaRegistro: new Date().toISOString()
+            });
+
+            alert('✅ ¡Cuenta creada con éxito! Ahora inicia sesión.');
+            window.location.href = 'index.html';
+
+        } catch (error) {
+            console.error("Error al registrar:", error);
+            alert("Hubo un error de conexión. Intenta de nuevo.");
+            btnRegister.disabled = false;
+            btnRegister.innerHTML = textoOriginal;
         }
-
-        // --- 2. GUARDADO DE DATOS ---
-        
-        const user = {
-            username: username,
-            email: email,
-            password: password 
-        };
-
-        // Guardar en LocalStorage
-        localStorage.setItem('user_game_portal', JSON.stringify(user));
-
-        // --- 3. REDIRECCIÓN ---
-        
-        alert('✅ ¡Cuenta creada con éxito! Bienvenido, ' + username);
-        
-        // CORRECCIÓN IMPORTANTE: Ruta relativa a la misma carpeta
-        window.location.href = './Login.html';
     });
-
-    function marcarError(input) {
-        input.style.borderColor = 'red';
-        input.style.backgroundColor = '#ffe6e6'; // Un rojo muy suave de fondo
-    }
-
-    function limpiarErrores(inputs) {
-        inputs.forEach(input => {
-            input.style.borderColor = ''; // Vuelve al borde original
-            input.style.backgroundColor = '';
-        });
-    }
 });

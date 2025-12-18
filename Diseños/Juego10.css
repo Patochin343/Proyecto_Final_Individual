@@ -105,3 +105,45 @@ button {
     .controles-movil { display: flex; }
     .instrucciones { display: none; } /* Ocultamos texto en móvil para ahorrar espacio */
 }
+
+/* Estilos del Leaderboard */
+.leaderboard-panel {
+    background-color: #111;
+    border: 2px solid #00ff00;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 100%;
+    margin-left: auto; 
+    margin-right: auto;
+    text-align: left;
+}
+.leaderboard-panel h3 {
+    color: #ffff00;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-family: 'Courier New', monospace;
+}
+.lista-puntajes {
+    list-style: none;        
+    padding: 0;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+.lista-puntajes li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px dotted #333;
+    color: #00ff00;
+}
+.lista-puntajes li:nth-child(1) { 
+    color: #ffd700; font-weight: bold; } /* Oro */
+.lista-puntajes li:nth-child(2) { 
+    color: #c0c0c0; } /* Plata */
+.lista-puntajes li:nth-child(3) { 
+    color: #cd7f32; } /* Bronce */

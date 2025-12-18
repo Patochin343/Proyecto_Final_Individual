@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Desarrolladores</title>
+    <link rel="stylesheet" href="/Diseños/Contacto.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/Img/Anarcade.png">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ANARCADE <span class="dev-tag">DEV</span></div>
+        <a href="Lobby.html" class="btn-back"><i class="fas fa-arrow-left"></i> Volver al Lobby</a>
+    </nav>
+
+    <div class="contact-container">
+        <div class="contact-box">
+            <h1 class="glitch-title">ÚNETE AL EQUIPO</h1>
+            <p class="subtitle">¿Tienes ideas para mejorar el código? Envíame un mensaje.</p>
+
+            <form id="contactForm">
+                <div class="input-group">
+                    <label for="nombre">Nick / Nombre</label>
+                    <input type="text" id="nombre" placeholder="Ej: CodeMaster99" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="dev@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="especialidad">Especialidad</label>
+                    <select id="especialidad">
+                        <option value="frontend">Frontend (HTML/CSS/JS)</option>
+                        <option value="backend">Backend (Node/Python/PHP)</option>
+                        <option value="design">Diseño UI/UX</option>
+                        <option value="fullstack">Full Stack</option>
+                        <option value="other">Otro</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="mensaje">Mensaje / Propuesta</label>
+                    <textarea id="mensaje" rows="5" placeholder="Cuéntame tu idea o muéstrame tu portafolio..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">ENVIAR DATOS <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="/Scripts/Contacto.js"></script>
+</body>
+</html>
+

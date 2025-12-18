@@ -157,3 +157,37 @@ body {
     background: linear-gradient(90deg, #0056b3, #00d4ff);
     box-shadow: 0 0 10px #00d4ff;
 }
+
+/* --- SECCIÓN CONTACTO DESARROLLADOR --- */
+.dev-contact-section {
+    margin-top: 4rem;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.btn-dev-contact {
+    display: inline-block;
+    background: transparent;
+    border: 2px solid #00ff55; /* Verde hacker */
+    color: #00ff55;
+    padding: 15px 30px;
+    font-family: 'Orbitron', sans-serif;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 85, 0.2);
+    text-transform: uppercase;
+}
+
+.btn-dev-contact:hover {
+    background: #00ff55;
+    color: #0f0f1a;
+    box-shadow: 0 0 25px rgba(0, 255, 85, 0.6);
+    transform: scale(1.05);
+}
+
+.btn-dev-contact i {
+    margin-right: 10px;
+}

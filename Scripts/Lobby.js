@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // localStorage.removeItem('user_game_portal');
             
             // Opción B: Simplemente redirigir al Login
-            window.location.href = './Login.html';
+            window.location.href = 'index.html';
         }
     });
 
